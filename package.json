@@ -41,8 +41,8 @@
     "pidusage": "^2.0.17"
   },
   "dependencies": {
+    "@hapi/joi": "^15.1.0",
     "chalk": "^2.4.2",
-    "joi": "^14.3.1",
     "toml": "^3.0.0"
   },
   "devDependencies": {
@@ -52,7 +52,6 @@
     "jest": "^24.8.0",
     "nodemon": "^1.19.1",
     "serve": "^11.0.2",
-    "shelljs": "^0.8.3",
     "standard": "^12.0.1",
     "typescript": "^3.5.2",
     "uuid": "^3.3.2"

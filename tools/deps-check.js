@@ -6,7 +6,7 @@
 
 const path = require('path')
 
-const shell = require('shelljs')
+const childProcess = require('child_process')
 
 const utils = require('../lib/utils')
 
@@ -29,14 +29,14 @@ async function main () {
   let depsCheckResult
 
   depsCheckResult = await depsCheck('missing', pkgJson)
-  const codeMissing = depsCheckResult.code
+  const codeMissing = depsCheckResult.error != null
 
   depsCheckResult = await depsCheck('unused', pkgJson)
-  const codeUnused = depsCheckResult.code
+  const codeUnused = depsCheckResult.error != null
 
   console.log('')
 
-  if (codeMissing + codeUnused > 0) process.exit(1)
+  if (codeMissing || codeUnused) process.exit(1)
 }
 
 async function depsCheck (type, pkgJson) {
@@ -60,8 +60,13 @@ async function depsCheck (type, pkgJson) {
 
   const deferred = utils.createDeferred()
 
-  shell.exec(`${DependencyCheckScript} ${args} .`, (code, stdout, stderr) => {
-    deferred.resolve({ code, stdout, stderr })
+  childProcess.exec(`${DependencyCheckScript} ${args} .`, (error, stdout, stderr) => {
+    stdout = stdout.trim()
+    stderr = stderr.trim()
+    if (stdout !== '') console.log(stdout)
+    if (stderr !== '') console.log(stderr)
+
+    deferred.resolve({ error, stdout, stderr })
   })
 
   return deferred.promise

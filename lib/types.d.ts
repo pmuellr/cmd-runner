@@ -1,6 +1,5 @@
 import { FastifyInstance } from "fastify"
 import { Server, IncomingMessage, ServerResponse } from "http"
-import { resolve } from "url";
 
 export interface IConfig {
   readonly host: string
@@ -30,9 +29,3 @@ export interface IServerOptions {
 }
 
 export type IHttpServer = FastifyInstance <Server, IncomingMessage, ServerResponse>
-
-export interface IDeferred {
-  promise: Promise<any>
-  resolve(any): any
-  reject(any): any
-}

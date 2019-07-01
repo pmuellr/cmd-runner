@@ -1,13 +1,14 @@
 #!/usr/bin/env node
-
 'use strict'
 
-module.exports = {
-  main
-}
+module.exports = { main }
+
+/** @typedef { import("./lib/types").IConfig } IConfig */
+/** @typedef { import("./lib/types").IHttpServer } IHttpServer */
 
 const Config = require('./lib/config')
 const Server = require('./lib/server')
+// const Runner = require('./runner')
 const logger = require('./lib/logger').createLogger(__filename)
 
 // @ts-ignore
@@ -19,9 +20,10 @@ async function main () {
   const config = Config.readConfig('./cmd-runner.toml')
   logger.debug(`config: ${JSON.stringify(config, null, 4)}`)
 
-  let stopServer
+  /** @type {IHttpServer} */
+  let server
   try {
-    stopServer = await Server.startServer({
+    server = await Server.startServer({
       host: config.host,
       port: config.port,
       config
@@ -38,7 +40,7 @@ async function main () {
     logger.warn(`received signal ${signal}, shutting down`)
 
     try {
-      await stopServer()
+      await Server.stopServer(server)
     } catch (err) {
       logger.error(`error stopping server: ${err.message}`)
       process.exit(1)

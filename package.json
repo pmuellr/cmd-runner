@@ -35,6 +35,9 @@
     "testEnvironment": "node",
     "verbose": true
   },
+  "nodemonConfig": {
+    "ext": "js,ts,json,toml"
+  },
   "dependencies-not-yet": {
     "meow": "^5.0.0",
     "node-pty": "^0.8.1",

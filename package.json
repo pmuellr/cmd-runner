@@ -1,5 +1,6 @@
 {
   "name": "cmd-runner",
+  "version": "1.0.0",
   "private": true,
   "description": "runs commands",
   "license": "MIT",
@@ -35,7 +36,6 @@
     "verbose": true
   },
   "dependencies-not-yet": {
-    "fastify": "^2.6.0",
     "meow": "^5.0.0",
     "node-pty": "^0.8.1",
     "pidusage": "^2.0.17"
@@ -43,6 +43,7 @@
   "dependencies": {
     "@hapi/joi": "^15.1.0",
     "chalk": "^2.4.2",
+    "fastify": "^2.6.0",
     "toml": "^3.0.0"
   },
   "devDependencies": {

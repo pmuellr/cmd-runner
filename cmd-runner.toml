@@ -1,0 +1,11 @@
+# port to bind the HTTP server to
+port = 8080
+
+# host to bind the HTTP server on
+host = "localhost"
+
+[[commands]]
+id = 'ls'
+name = 'list files'
+command = 'ls'
+cwd = "."
